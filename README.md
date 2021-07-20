@@ -1,2 +1,2 @@
 # todo-typescipt
-Todo list i React(typescript)
+Todo list React(typescript)
