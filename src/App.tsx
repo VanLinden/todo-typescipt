@@ -3,9 +3,22 @@ import './App.css';
 import TodoTask from './Components/TodoTask';
 import {ITodo} from './interfaces';
 
-const App: FC = () => {
+type Props = {
+  todos?: todo[];
+};
+
+type todo = {
+  id: string | number;
+  title: string;
+  isDone: boolean;
+};
+
+const App: FC<Props> = (props) => {
   const [todo, setTodo] = useState<string>("")
+  // const [filter, setFilter] = useState<'all' | 'undone'>('all');
+  // const [doneCount, setDoneCount] = useState(0);
   const [todoList, setTodoList] = useState<ITodo[]>([])
+  const [updateView, setUpdateView] = useState(0);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     if (event.target.name === "todo") {
@@ -14,15 +27,26 @@ const App: FC = () => {
   }
 
   const addTask = (): void => {
-    const newTodo = { todoName: todo }
+    const newTodo = { id: new Date().getTime(), title: todo, isDone: false }
     setTodoList([...todoList, newTodo]);
     setTodo("");
   }
 
+  const markAsDone = (todoNameToMark: string): void => {
+      todoList.forEach(element => {
+        if (element.title === todoNameToMark) 
+        {
+          element.isDone = true
+        }
+      });
+      setUpdateView((updateView) => ++updateView);
+  };
+
   const completeTask = (todoNameToDelete: string): void => {
     setTodoList(todoList.filter((todo) => {
-      return todo.todoName !== todoNameToDelete
+      return todo.title !== todoNameToDelete
     }))
+    // setDoneCount(todoList.length);
   }
 
   return (
@@ -41,9 +65,10 @@ const App: FC = () => {
       </div>
       <div className="todoList">
         {todoList.map((todo: ITodo, key: number) => {
-          return <TodoTask key={key} todo={todo} completeTask={completeTask} />;
+          return <TodoTask key={key} todo={todo} completeTask={completeTask} markAsDone={markAsDone} />;
         })}
       </div>
+      <span style={{ display: "none" }}>{updateView}</span>
     </div>
   );
 }
