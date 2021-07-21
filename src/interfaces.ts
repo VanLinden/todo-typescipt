@@ -1,3 +1,5 @@
 export interface ITodo {
-    todoName: string;
+    id: string | number;
+    title: string;
+    isDone: boolean;
 }
