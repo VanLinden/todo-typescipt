@@ -65,11 +65,22 @@ body {
 }
 
 .todo .content {
-  flex: 80%;
+  flex: 70%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.mark {
+  flex: 10%;
+  height: 100%;
+  background-color: rgb(233, 134, 13) !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom-right-radius: 0px !important;
+  border-top-right-radius: 0px !important;
 }
 
 .todo .content span {
@@ -92,4 +103,9 @@ body {
   border-bottom-right-radius: 8px;
   color: white;
   cursor: pointer;
+}
+
+.contred {
+  background-color: yellow !important;
+  color:crimson !important;
 }
